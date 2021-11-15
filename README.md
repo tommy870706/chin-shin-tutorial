@@ -1,6 +1,6 @@
 # chin-shin-tutorial
 
-##這是靜心女中的教材資料夾
+### 這是靜心女中的教材資料夾
 
 使用工具: [vscode](https://code.visualstudio.com/)<br/>
 
