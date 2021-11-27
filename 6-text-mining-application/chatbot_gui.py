@@ -1,3 +1,5 @@
+#pip install tkinter
+#pip install torch
 from tkinter import *
 import torch
 
@@ -10,7 +12,8 @@ from transformers import (
 tokenizer = AutoTokenizer.from_pretrained('microsoft/DialoGPT-medium')
 model = AutoModelWithLMHead.from_pretrained('./model/wizard_wiki')
 
-
+#UI 設定
+#————————————————————————————————————————————————————————————————————————
 BG_GRAY = '#ABB2B9'
 BG_COLOR = '#17202A'
 TEXT_COLOR = '#EAECEE'
@@ -73,6 +76,8 @@ class ChatApplication:
         msg = self.msg_entry.get()
         self._insert_message(msg, sender='User')
         
+    #——————————————————————————————————————————————————————————————————————————————  
+
     def _insert_message(self, msg, sender='User'):
         # declare global
         global chat_history_ids
@@ -84,7 +89,8 @@ class ChatApplication:
         self.msg_entry.delete(0, END)
         # user: msg1
         msg1 = f'{sender}: {msg}\n\n'
-        new_user_input_ids = tokenizer.encode(msg + tokenizer.eos_token, return_tensors='pt')
+        new_user_input_ids = tokenizer.encode(msg + tokenizer.eos_token,
+                                              return_tensors='pt')
         # print(new_user_input_ids)
 
         # append the new user input tokens to the chat history
@@ -100,13 +106,17 @@ class ChatApplication:
             pad_token_id=tokenizer.eos_token_id,
             top_p=0.92, top_k = 50
             )
+        
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, msg1)
         self.text_widget.configure(state=DISABLED)
         
         # bot response
-        response = "{}".format(tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True))
+        response = "{}".format(tokenizer.decode(
+            chat_history_ids[:, bot_input_ids.shape[-1]:][0],
+            skip_special_tokens=True))
         msg2 = f'{Bot_name}: {response}\n\n'
+        
         self.text_widget.configure(state=NORMAL)
         self.text_widget.insert(END, msg2)
         self.text_widget.configure(state=DISABLED)
