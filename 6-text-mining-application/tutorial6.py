@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+#pre train model https://drive.google.com/file/d/1Vwx7Q3lofAop-VkIYfTZ8ceLIL3m-Sag/view?usp=sharing
+
 #pip install tkinter
 #pip install torch
 from tkinter import *
